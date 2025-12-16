@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們 | 興隆A+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #3ea669;
+            --green-dark: #2d8a54;
+            --red: #ec6064;
+            --yellow: #fcca00;
+            --blue: #00a1e1;
+            --brown: #9f4e27;
+            --cream: #fefdf8;
+            --text: #2d3a2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* 浮動色塊背景 */
+        .floating-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            opacity: 0.5;
+            filter: blur(2px);
+            animation: floatBlob 25s infinite ease-in-out;
+        }
+
+        .blob:nth-child(1) { width: 120px; height: 80px; background: var(--green); top: 10%; left: 5%; border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+        .blob:nth-child(2) { width: 100px; height: 70px; background: var(--yellow); top: 60%; right: 8%; border-radius: 45% 55% 40% 60% / 55% 45% 55% 45%; animation-delay: -5s; }
+        .blob:nth-child(3) { width: 80px; height: 55px; background: var(--blue); bottom: 15%; left: 10%; border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%; animation-delay: -10s; }
+        .blob:nth-child(4) { width: 90px; height: 65px; background: var(--red); top: 25%; right: 15%; border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; animation-delay: -15s; }
+
+        @keyframes floatBlob {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(20px, -30px) rotate(5deg) scale(1.05); }
+            50% { transform: translate(-15px, 15px) rotate(-3deg) scale(0.95); }
+            75% { transform: translate(25px, 20px) rotate(6deg) scale(1.02); }
+        }
+
+        /* 導航列 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(254, 253, 248, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--green);
+        }
+
+        .nav-logo { height: 45px; }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--green);
+            color: white;
+        }
+
+        /* 主區塊 */
+        .contact-hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 140px 2rem 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-hero h1 {
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        .contact-hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Facebook 大按鈕 */
+        .fb-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, #1877f2 0%, #0d65d9 100%);
+            color: white;
+            padding: 1.5rem 3rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            box-shadow: 0 15px 50px rgba(24, 119, 242, 0.4);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fb-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .fb-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(24, 119, 242, 0.5);
+        }
+
+        .fb-cta:hover::before {
+            left: 100%;
+        }
+
+        .fb-cta svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* 內容區 */
+        .content-section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 歡迎卡片 */
+        .welcome-card {
+            background: white;
+            border-radius: 40px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(62, 166, 105, 0.1);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--green), var(--yellow), var(--blue), var(--red));
+        }
+
+        .welcome-card h2 {
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-card p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--text);
+        }
+
+        .welcome-card .highlight {
+            display: inline-block;
+            background: linear-gradient(180deg, transparent 50%, rgba(252, 202, 0, 0.3) 50%);
+            padding: 0 0.3rem;
+            font-weight: 700;
+        }
+
+        /* FAQ 區塊 */
+        .faq-section {
+            margin-top: 2rem;
+        }
+
+        .faq-section h2 {
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 24px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(62, 166, 105, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 12px 40px rgba(62, 166, 105, 0.12);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(62, 166, 105, 0.05);
+        }
+
+        .faq-question .emoji {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .faq-question .arrow {
+            margin-left: auto;
+            color: var(--green);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-question .arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            padding: 0 2rem 1.5rem;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #666;
+            padding-left: 2.5rem;
+        }
+
+        /* 小故事區塊 */
+        .stories-section {
+            margin-top: 4rem;
+        }
+
+        .stories-section h2 {
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .story-bubble {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(62, 166, 105, 0.1);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .story-bubble:hover {
+            transform: translateY(-8px) rotate(-1deg);
+        }
+
+        .story-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 30px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            transform: rotate(45deg);
+            box-shadow: 5px 5px 10px rgba(62, 166, 105, 0.05);
+        }
+
+        .story-bubble:nth-child(1) { border-left: 4px solid var(--green); }
+        .story-bubble:nth-child(2) { border-left: 4px solid var(--yellow); }
+        .story-bubble:nth-child(3) { border-left: 4px solid var(--blue); }
+
+        .story-bubble .quote {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .story-bubble .author {
+            font-size: 0.9rem;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        /* 地點提示 */
+        .location-hint {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 2.5rem;
+            margin-top: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-hint::before {
+            content: '🌳';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            top: -20px;
+            right: -20px;
+        }
+
+        .location-hint h3 {
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .location-hint p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .location-hint .address {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--green);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 4rem;
+        }
+
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--green);
+            transform: translateY(-3px);
+        }
+
+        .social-links svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .footer-text { opacity: 0.9; font-size: 0.9rem; }
+        .footer-address { margin-top: 1rem; opacity: 0.8; font-size: 0.85rem; }
+
+        /* RWD */
+        @media (max-width: 768px) {
+            nav { padding: 0.8rem 1rem; }
+            .nav-logo { height: 38px; }
+            .nav-links { gap: 0.5rem; }
+            .nav-links a { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
+            .contact-hero { padding: 120px 1rem 40px; min-height: 50vh; }
+            .content-section { padding: 2rem 1rem; }
+            .welcome-card, .location-hint { padding: 2rem 1.5rem; border-radius: 24px; }
+            .fb-cta { padding: 1.2rem 2rem; font-size: 1.2rem; }
+            .faq-question { padding: 1.2rem 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.8rem;
+                cursor: pointer;
+                color: var(--green);
+            }
+        }
+
+        @media (min-width: 601px) {
+            .mobile-menu-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮動色塊背景 -->
+    <div class="floating-blobs">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
+    <!-- 導航列 -->
+    <nav>
+        <img src="assets/logo-horizontal.png" alt="興隆A+" class="nav-logo">
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="members.html">青創夥伴</a></li>
+            <li><a href="events.html">活動資訊</a></li>
+            <li><a href="contact.html" class="active">聯絡我們</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <!-- 主視覺 -->
+    <section class="contact-hero">
+        <h1>👋 嗨，新朋友！</h1>
+        <p class="subtitle">有任何問題，或是想參加我們的活動？</p>
+        <a href="https://www.facebook.com/profile.php?id=61577034882871" target="_blank" class="fb-cta">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            來 Facebook 找我們聊聊！
+        </a>
+    </section>
+
+    <!-- 內容區 -->
+    <section class="content-section">
+        
+        <!-- 歡迎卡片 -->
+        <div class="welcome-card">
+            <h2>🎉 不管你住哪裡，都歡迎！</h2>
+            <p>
+                我們的活動<span class="highlight">完全開放給所有人</span>參加！<br>
+                不管你是住在興隆社宅、隔壁社區、還是從文山區另一頭特地過來的，<br>
+                只要你想認識新朋友、學點新東西、或純粹來放鬆一下，<br>
+                我們都超歡迎你 🌳
+            </p>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h2>💬 常見問題</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="emoji">🏠</span>
+                    <span>我不是社宅住戶，可以參加活動嗎？</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>當然可以！我們大部分的活動都開放給所有人參加。只要到 Facebook 粉專看到有興趣的活動，直接報名就可以囉～</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="emoji">📝</span>
+                    <span>要怎麼知道最新的活動資訊？</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>追蹤我們的 Facebook 粉專就對了！所有活動公告、報名連結都會在那邊發布，記得開啟通知才不會錯過～</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="emoji">👶</span>
+                    <span>可以帶小孩一起參加嗎？</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>我們超多親子活動的！像是親子手作、小廚王、繪畫課程等等，都非常適合帶小朋友來玩。每個活動的適合年齡會在報名資訊裡說明～</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="emoji">💰</span>
+                    <span>活動要收費嗎？</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>大部分活動都是免費的！如果有材料費會在報名時說明，通常也只是成本價，我們不賺錢的啦～</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="emoji">🤝</span>
+                    <span>我也想辦活動，可以合作嗎？</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>太棒了！歡迎到 Facebook 私訊我們聊聊你的想法，不管是場地借用、活動合作、還是資源交換，我們都很樂意討論！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 小故事 -->
+        <div class="stories-section">
+            <h2>💭 來自參加者的小故事</h2>
+            <div class="stories-grid">
+                <div class="story-bubble">
+                    <p class="quote">「本來只是陪小孩來畫畫，結果自己畫得比他還認真，好久沒這麼放鬆了！」</p>
+                    <p class="author">— 從景美來的媽媽</p>
+                </div>
+                <div class="story-bubble">
+                    <p class="quote">「住隔壁棟三年了，第一次認識這麼多鄰居，原來大家都很有趣！」</p>
+                    <p class="author">— 興隆路上的上班族</p>
+                </div>
+                <div class="story-bubble">
+                    <p class="quote">「我爸參加樂齡課程後，終於學會用 LINE 傳貼圖給我了 😂」</p>
+                    <p class="author">— 住戶的女兒</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 地點提示 -->
+        <div class="location-hint">
+            <h3>📍 活動地點</h3>
+            <p>
+                我們的活動通常在興隆社宅 A 區的公共空間舉辦，<br>
+                就在木柵公園旁邊，認那兩棵大樹就對了（就像我們的 Logo！）
+            </p>
+            <div class="address">116 臺北市文山區興隆路四段 42 巷 1 號</div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <img src="assets/logo-vertical.png" alt="興隆A+" class="footer-logo">
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61577034882871" target="_blank" title="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/xinglong.a" target="_blank" title="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+            </a>
+        </div>
+        <p class="footer-text">© 2025 興隆A+ 青創團隊</p>
+        <p class="footer-address">📍 116臺北市文山區興隆路四段42巷1號</p>
+    </footer>
+
+    <script>
+        // FAQ 展開收合
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isOpen = item.classList.contains('open');
+                
+                // 關閉其他
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                
+                // 切換當前
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // 滾動時導航列陰影
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
