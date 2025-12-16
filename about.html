@@ -503,6 +503,43 @@
             }
         }
 
+        /* 手機選單展開 */
+        .nav-links.mobile-open {
+            display: flex !important;
+            position: fixed;
+            top: 65px;
+            left: 0;
+            right: 0;
+            background: rgba(254, 253, 248, 0.98);
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--green);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-links.mobile-open a {
+            padding: 1rem;
+            text-align: center;
+            border-radius: 15px;
+            font-size: 1.1rem;
+        }
+
+        .nav-links.mobile-open a:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        .mobile-menu-btn.open {
+            color: var(--red);
+        }
+
         @media (min-width: 601px) {
             .mobile-menu-btn { display: none; }
         }
@@ -532,7 +569,7 @@
 
     <!-- 導航列 -->
     <nav>
-        <img src="assets/logo-horizontal.png" alt="興隆A+" class="nav-logo">
+        <a href="index.html" class="nav-logo-link"><img src="assets/logo-horizontal.png" alt="興隆A+" class="nav-logo"></a>
         <ul class="nav-links">
             <li><a href="index.html">首頁</a></li>
             <li><a href="about.html" class="active">關於我們</a></li>
@@ -704,6 +741,28 @@
                 nav.style.boxShadow = 'none';
             }
         });
+    </script>
+<script>
+        // 手機漢堡選單
+        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+        const navLinks = document.querySelector(".nav-links");
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener("click", () => {
+                navLinks.classList.toggle("mobile-open");
+                mobileMenuBtn.classList.toggle("open");
+                mobileMenuBtn.textContent = navLinks.classList.contains("mobile-open") ? "✕" : "☰";
+            });
+            
+            // 點擊連結後關閉選單
+            navLinks.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    navLinks.classList.remove("mobile-open");
+                    mobileMenuBtn.classList.remove("open");
+                    mobileMenuBtn.textContent = "☰";
+                });
+            });
+        }
     </script>
 </body>
 </html>
